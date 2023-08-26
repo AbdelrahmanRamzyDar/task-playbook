@@ -1,0 +1,27 @@
+---
+- name: word press require
+  hosts: server2
+  become: yes
+  tasks:
+   - name: install httpd
+     yum:
+      name: httpd
+      state: present
+      
+   - name: install mariadb
+     yum:
+      name: mariadb
+      state: present
+   - name: install php and it module
+     yum:
+      name: "{{ item }}"
+      state: present
+     become: true
+     loop:
+        - php
+        - php-mysql
+        - php-cli
+        - php-gd
+        - php-mbstring
+        - php-xml
+        - php-json
